@@ -1,7 +1,7 @@
-function render(quotes) {
+function render(quote) {
     const container = document.querySelector('#container');
     container.innerHTML = ''; // Clear previous elements
-    //Welcome
+
     const welcomeSection = document.createElement('div');
     welcomeSection.className = 'welcome-section';
     welcomeSection.style = `
@@ -12,7 +12,7 @@ function render(quotes) {
         position: relative;
     `;
     const welcomeText = document.createElement('h3');
-    welcomeText.innerHTML = `<h3>Welcome to<img src= "./pics/logo I.png" style="max-width: 156px; margin-bottom: 3px;"></h3>`;
+    welcomeText.innerHTML = `<h3>Welcome to<img src="./pics/logo I.png" style="max-width: 156px; margin-bottom: 3px;"></h3>`;
     welcomeText.style = `
         color: #04247B;
         text-align: center;
@@ -33,12 +33,9 @@ function render(quotes) {
     `;
     welcomeSection.appendChild(tagline);
 
-    //Msg API
-    let message = quotes['text'];
-    console.log(quotes['text']);
     const positiveMsg = document.createElement('div');
     positiveMsg.className = 'msg-section';
-    positiveMsg.innerText = `${message}`;
+    positiveMsg.innerText = quote.text;
     positiveMsg.style = `
         font-size: 1.2rem;
         padding: 20px;
@@ -55,7 +52,7 @@ function render(quotes) {
         box-sizing: border-box;
         line-height: 1.5;
     `;
-    
+
     const videoContainer = document.createElement('div');
     videoContainer.className = 'video-container';
     videoContainer.style = `
@@ -73,13 +70,11 @@ function render(quotes) {
         allowfullscreen></iframe> 
     `;
 
-    // Container do Carrossel
     const testimonialsCarousel = document.createElement('div');
     testimonialsCarousel.id = 'testimonialCarousel';
     testimonialsCarousel.className = 'carousel slide';
     testimonialsCarousel.setAttribute('data-bs-ride', 'carousel');
     
-    // Indicadores do Carrossel
     const indicators = document.createElement('div');
     indicators.className = 'carousel-indicators';
     const testimonialsData = [
@@ -115,9 +110,6 @@ function render(quotes) {
         }
     ];
 
-    
-    
-    // Adicionar indicadores
     testimonialsData.forEach((_, index) => {
         const button = document.createElement('button');
         button.type = 'button';
@@ -131,162 +123,117 @@ function render(quotes) {
         indicators.appendChild(button);
     });
 
-// Itens do Carrossel
-const carouselInner = document.createElement('div');
-carouselInner.className = 'carousel-inner';
+    const carouselInner = document.createElement('div');
+    carouselInner.className = 'carousel-inner';
 
-// Adicionar os depoimentos
-testimonialsData.forEach((testimonial, index) => {
-    const item = document.createElement('div');
-    item.className = 'carousel-item';
-    if (index === 0) {
-        item.classList.add('active');
-    }
-    const testimonialDiv = document.createElement('div');
-    testimonialDiv.className = 'testimonial';
-    
-    
-    const img = document.createElement('img');
-    img.src = testimonial.photo;
-    img.alt = '';
-    img.className = 'testimonial__photo';
-    const name = document.createElement('div');
-    name.className = 'testimonial__name';
-    name.textContent = testimonial.name;
-    const sport = document.createElement('div');
-    sport.className = 'testimonial__sport';
-    sport.textContent = testimonial.sport;
-    const text = document.createElement('p');
-    text.className = 'testimonial__text';
-    text.textContent = testimonial.text;
-    testimonialDiv.appendChild(img);
-    testimonialDiv.appendChild(name);
-    testimonialDiv.appendChild(sport);
-    testimonialDiv.appendChild(text);
-    item.appendChild(testimonialDiv);
+    testimonialsData.forEach((testimonial, index) => {
+        const item = document.createElement('div');
+        item.className = 'carousel-item';
+        if (index === 0) {
+            item.classList.add('active');
+        }
+        const testimonialDiv = document.createElement('div');
+        testimonialDiv.className = 'testimonial';
+        
+        const img = document.createElement('img');
+        img.src = testimonial.photo;
+        img.alt = '';
+        img.className = 'testimonial__photo';
+        const name = document.createElement('div');
+        name.className = 'testimonial__name';
+        name.textContent = testimonial.name;
+        const sport = document.createElement('div');
+        sport.className = 'testimonial__sport';
+        sport.textContent = testimonial.sport;
+        const text = document.createElement('p');
+        text.className = 'testimonial__text';
+        text.textContent = testimonial.text;
+        testimonialDiv.appendChild(img);
+        testimonialDiv.appendChild(name);
+        testimonialDiv.appendChild(sport);
+        testimonialDiv.appendChild(text);
+        item.appendChild(testimonialDiv);
 
-    // Adicionando o evento de clique
-    item.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.location.href = '/testimonial'; // Altere a rota para '/testimonial'
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = '/testimonial';
+        });
+        carouselInner.appendChild(item);
     });
-    carouselInner.appendChild(item);
-});
-    
-// Controles do Carrossel
+
     const prevButton = document.createElement('button');
     prevButton.className = 'carousel-control-prev';
     prevButton.type = 'button';
     prevButton.setAttribute('data-bs-target', '#testimonialCarousel');
     prevButton.setAttribute('data-bs-slide', 'prev');
     prevButton.innerHTML = `
-  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Previous</span>
-`;
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    `;
     const nextButton = document.createElement('button');
     nextButton.className = 'carousel-control-next';
     nextButton.type = 'button';
     nextButton.setAttribute('data-bs-target', '#testimonialCarousel');
     nextButton.setAttribute('data-bs-slide', 'next');
     nextButton.innerHTML = `
-  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-  <span class="visually-hidden">Next</span>
-`;
-    
-    
-    // Montagem do Carrossel
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    `;
+
     testimonialsCarousel.appendChild(indicators);
     testimonialsCarousel.appendChild(carouselInner);
     testimonialsCarousel.appendChild(prevButton);
     testimonialsCarousel.appendChild(nextButton);
-    
-    // Adiciona o carrossel na HomeView
+
     document.querySelector('.homeview').appendChild(testimonialsCarousel);
 
-   // Create the footer element
-const footer = document.createElement('footer');
-footer.className = 'footer';
+    const footer = document.createElement('footer');
+    footer.className = 'footer';
 
-// Create the copyright paragraph
-const copyrightParagraph = document.createElement('p');
-copyrightParagraph.className = 'footer__copyright';
-copyrightParagraph.innerHTML = '&copy; Copyright by ';
+    const copyrightParagraph = document.createElement('p');
+    copyrightParagraph.className = 'footer__copyright';
+    copyrightParagraph.innerHTML = '&copy; Copyright by ';
+    const footerLink = document.createElement('a');
+    footerLink.className = 'footer__link github-link';
+    footerLink.target = '_blank';
+    footerLink.href = 'https://github.com/fmbicalho/race4life';
+    footerLink.textContent = 'Lumon';
+    copyrightParagraph.appendChild(footerLink);
+    const additionalText = document.createTextNode('. Find your strength. Find your hope.');
+    copyrightParagraph.appendChild(additionalText);
+    footer.appendChild(copyrightParagraph);
 
-// Create the link inside the copyright paragraph
-const footerLink = document.createElement('a');
-footerLink.className = 'footer__link github-link';
-footerLink.target = '_blank';
-footerLink.href = 'https://github.com/fmbicalho/race4life';
-footerLink.textContent = 'Lumon';
+    const footerLinksDiv = document.createElement('div');
+    footerLinksDiv.className = 'footer__links';
+    const contactParagraph = document.createElement('p');
+    contactParagraph.textContent = 'Contact us: contact@race4life.com';
+    footerLinksDiv.appendChild(contactParagraph);
+    footer.appendChild(footerLinksDiv);
 
-// Append the link to the copyright paragraph
-copyrightParagraph.appendChild(footerLink);
+    const aboutContentDiv = document.createElement('div');
+    aboutContentDiv.id = 'about-content';
+    aboutContentDiv.style.display = 'none';
+    aboutContentDiv.style.marginTop = '20px';
+    const aboutTitle = document.createElement('h2');
+    aboutTitle.id = 'about-title';
+    const aboutDescription = document.createElement('p');
+    aboutDescription.id = 'about-description';
+    aboutContentDiv.appendChild(aboutTitle);
+    aboutContentDiv.appendChild(aboutDescription);
+    footer.appendChild(aboutContentDiv);
 
-// Add the additional text to the copyright paragraph
-const additionalText = document.createTextNode('. Find your strength. Find your hope.');
-copyrightParagraph.appendChild(additionalText);
+    const logoContainerDiv = document.createElement('div');
+    const logoImg = document.createElement('img');
+    logoImg.src = '../pics/olympic.png';
+    logoImg.className = 'bottom-logo';
+    logoContainerDiv.appendChild(logoImg);
+    footer.appendChild(logoContainerDiv);
 
-// Append the copyright paragraph to the footer
-footer.appendChild(copyrightParagraph);
-
-// Create the footer links container
-const footerLinksDiv = document.createElement('div');
-footerLinksDiv.className = 'footer__links';
-
-// Create the contact paragraph inside the footer links container
-const contactParagraph = document.createElement('p');
-contactParagraph.textContent = 'Contact us: contact@race4life.com';
-
-// Append the contact paragraph to the footer links container
-footerLinksDiv.appendChild(contactParagraph);
-
-// Append the footer links container to the footer
-footer.appendChild(footerLinksDiv);
-
-// Create the hidden about content div
-const aboutContentDiv = document.createElement('div');
-aboutContentDiv.id = 'about-content';
-aboutContentDiv.style.display = 'none';
-aboutContentDiv.style.marginTop = '20px';
-
-// Create the about title header
-const aboutTitle = document.createElement('h2');
-aboutTitle.id = 'about-title';
-
-// Create the about description paragraph
-const aboutDescription = document.createElement('p');
-aboutDescription.id = 'about-description';
-
-// Append the title and description to the about content div
-aboutContentDiv.appendChild(aboutTitle);
-aboutContentDiv.appendChild(aboutDescription);
-
-// Append the about content div to the footer
-footer.appendChild(aboutContentDiv);
-
-// Create the image container
-const logoContainerDiv = document.createElement('div');
-
-// Create the image element
-const logoImg = document.createElement('img');
-logoImg.src = '../pics/olympic.png';
-logoImg.className = 'bottom-logo';
-
-// Append the image to the image container
-logoContainerDiv.appendChild(logoImg);
-
-// Append the image container to the footer
-footer.appendChild(logoContainerDiv);
-
-// Finally, append the footer to the body (or any other container element)
-
-
-//Final Append
-container.appendChild(welcomeSection);
-container.appendChild(positiveMsg);
-container.appendChild(videoContainer);
-container.appendChild(testimonialsCarousel);
-container.appendChild(footer);
-container.appendChild(footer);
+    container.appendChild(welcomeSection);
+    container.appendChild(positiveMsg);
+    container.appendChild(videoContainer);
+    container.appendChild(testimonialsCarousel);
+    container.appendChild(footer);
 }
+
 export default { render };

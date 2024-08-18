@@ -3,12 +3,9 @@ import homeService from '../service/homeService.js';
 
 export async function init() {
     try {
-        const quotes = await homeService.getQuotes();
-        console.log(quotes);
-        homeView.render(quotes);
-  
+        const quote = await homeService.getQuote();
+        homeView.render(quote);
     } catch (error) {
         console.error(error);
     }
-
 }
