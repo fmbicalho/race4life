@@ -6,6 +6,10 @@ This project was developed in 24 hours during the Code For All_ Bootcamp Hackath
 
 Our team of five decided to address a crucial issue: **mental health among athletes**. The intense pressure faced by athletes can lead to serious mental health challenges, including depression and suicidal thoughts. Our application provides resources and support for athletes who are struggling with these issues.
 
+## 🌐 Website
+
+Visit our live application here: [Race4Life](https://race4life.netlify.app)
+
 ## 🛠️ Project Overview
 
 ### 🎯 Objective
